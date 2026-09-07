@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.wrangler/
+public/runtime/
+test-results/
+playwright-report/
+.env*
+.dev.vars*
+!.env.example
+.DS_Store
+*.log
