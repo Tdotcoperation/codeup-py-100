@@ -69,7 +69,7 @@ npm run test:e2e
 
 ## Cloudflare Workers 배포
 
-`wrangler.jsonc`는 `dist/`를 Workers Static Assets로 올리고, 존재하지 않는 경로를 `index.html`로 보내 SPA 라우팅을 유지하도록 설정되어 있습니다.
+`wrangler.jsonc`는 배포 전에 `npm run build`를 자동으로 실행하고, 생성된 `dist/`를 Workers Static Assets로 올립니다. 존재하지 않는 경로는 `index.html`로 보내 SPA 라우팅을 유지하도록 설정되어 있습니다. 따라서 Cloudflare의 배포 명령을 `npx wrangler deploy`로 지정해도 `dist/`가 없는 상태로 배포를 시작하지 않습니다.
 
 ```bash
 npm install
@@ -86,6 +86,8 @@ Cloudflare 대시보드에서 GitHub 저장소를 연결할 때는 다음을 사
 - Deploy command: `npx wrangler deploy`
 - Root directory: `/`
 - Node.js: 22 이상
+
+대시보드가 별도의 Build command를 실행하지 않고 Deploy command만 실행하는 환경에서도 `wrangler.jsonc`의 custom build가 같은 빌드를 한 번 더 보장합니다. 별도 Build command가 제공되는 경우에는 위처럼 `npm run build`를 넣어 빌드 로그를 확인할 수 있습니다.
 
 Cloudflare Static Assets의 SPA fallback은 [공식 문서](https://developers.cloudflare.com/workers/static-assets/routing/single-page-application/)의 `not_found_handling: "single-page-application"` 설정을 사용합니다.
 
